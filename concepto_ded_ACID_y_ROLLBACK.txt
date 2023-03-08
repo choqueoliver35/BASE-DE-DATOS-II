@@ -1,0 +1,1 @@
+todas las base de datos relacionales manejan el concepto acid, estas base de datos nos garantizan que no se puede perder la informaacion
