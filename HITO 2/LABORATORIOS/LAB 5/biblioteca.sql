@@ -115,6 +115,7 @@ CREATE VIEW Libros_de_Autores_Argentinos AS
     FROM libro AS L INNER JOIN autor AS A ON L.autor_id = A.id
     WHERE A.nacionalidad LIKE '%Argentino%';
 
+drop view libros_de_ciencia_ficcion;
 
 CREATE VIEW Libros_de_Ciencia_Ficcion AS
     SELECT L.titulo AS LIBRO,
@@ -124,7 +125,7 @@ CREATE VIEW Libros_de_Ciencia_Ficcion AS
     WHERE C.nombre = 'Ciencia Ficción';
 
 
-ALTER VIEW bookContenet AS
+CREATE VIEW bookContenet AS
     SELECT L.titulo AS titleBook,
            L.editorial AS editorialBook,
            L.paginas AS pagesBook,
@@ -136,13 +137,13 @@ ALTER VIEW bookContenet AS
                    ELSE 'CONTENIDO AVANZADO'
                END
                ) AS typeContentBook
-    FROM libro AS L
+    FROM libro AS L;
 
 #de acuerdo a la vista creada contar cuantos libros son de contenido miedo
 
 SELECT COUNT(typeContentBook)
 FROM bookcontenet
-WHERE typeContentBook = 'CONTENIDO MEDIANO'
+WHERE typeContentBook = 'CONTENIDO MEDIANO';
 
 
 
@@ -164,6 +165,143 @@ SELECT *,
     CASE
         WHEN b.BOOKDETAIL LIKE '%NOVA%' THEN 'EN VENTA'
         ELSE  'EN PROCESO'
-        END
+    END
 ) AS Promocion
-FROM book_And_Autor AS B
+FROM book_And_Autor AS B;
+
+#LAB 4;
+
+CREATE VIEW autores_peru_historia AS
+    SELECT C.nombre AS CATEGORY,
+           A.nombre AS NAME,
+           A.nacionalidad AS NACIONALITY
+     FROM libro AS L
+         INNER JOIN libro_categoria LC on L.id = LC.libro_id
+         INNER JOIN categoria C on LC.categoria_id = C.id
+         INNER JOIN autor A on L.autor_id = A.id
+     WHERE C.nombre = 'Historia' AND A.nacionalidad = 'Peruano';
+
+SELECT *
+FROM autores_peru_historia;
+
+
+CREATE OR REPLACE FUNCTION fullname()
+RETURNS VARCHAR(30)
+    BEGIN
+        RETURN 'Mijail Choque Amaro';
+    END;
+
+SELECT fullname();
+
+CREATE OR REPLACE FUNCTION numero()
+RETURNS INTEGER
+    BEGIN
+        RETURN 10;
+    END;
+
+SELECT numero();
+
+
+CREATE OR REPLACE FUNCTION getNombreCompleto( nombres VARCHAR(30))
+RETURNS VARCHAR(30)
+    BEGIN
+        RETURN nombres;
+    END;
+
+SELECT getNombreCompleto('Mijail Oliver');
+
+
+CREATE OR REPLACE FUNCTION getsuma( a INTEGER, b INTEGER, c INTEGER)
+RETURNS INTEGER
+    BEGIN
+
+        RETURN a + b + c;
+    END;
+
+SELECT getsuma(5,8,9);
+
+
+
+CREATE OR REPLACE FUNCTION getsuma2( a INTEGER, b INTEGER, c INTEGER)
+RETURNS INTEGER
+    BEGIN
+        DECLARE D INTEGER;
+        SET D=a+b+c;
+
+        RETURN D;
+    END;
+
+SELECT getsuma2(5,8,9);
+
+
+CREATE OR REPLACE FUNCTION operacion (a INTEGER, b INTEGER, accion VARCHAR(50))
+	RETURNS INTEGER
+		BEGIN
+		    DECLARE R INTEGER;
+
+			IF (accion = 'sumar') THEN
+					SET R = a + b;
+		    END IF;
+
+			IF (accion = 'restar') THEN
+					SET R = a - b;
+			END IF;
+
+			IF (accion = 'multiplicar') THEN
+					SET R = a * b;
+			END IF;
+
+			IF (accion = 'dividir') THEN
+					SET R = a * b;
+			END IF;
+
+			RETURN R;
+		END;
+
+SELECT operacion(5,5,'sumar');
+SELECT operacion(5,5,'restar');
+SELECT operacion(5,5,'multiplicar');
+SELECT operacion(5,5,'dividir');
+
+CREATE OR REPLACE FUNCTION operacion1(a INTEGER, b INTEGER, accion VARCHAR(50))
+	RETURNS INTEGER
+		BEGIN
+		    DECLARE R INTEGER;
+
+			CASE accion
+                   WHEN 'sumar' THEN set R = a + b;
+                   WHEN 'restar' THEN set R = a - b;
+                   WHEN 'multiplicar' THEN set R = a * b;
+                   WHEN 'dividir' THEN set R = a / b;
+                   ELSE set R = 0;
+               END CASE;
+
+			RETURN R;
+		END;
+
+SELECT operacion1(5,5,'sumar');
+SELECT operacion1(5,5,'restar');
+SELECT operacion1(5,5,'multiplicar');
+SELECT operacion1(5,5,'dividir');
+
+
+CREATE OR REPLACE FUNCTION validar_historia_peru(C VARCHAR(30), N VARCHAR(30))
+	RETURNS BOOLEAN
+		BEGIN
+            DECLARE VAL BOOLEAN DEFAULT FALSE;
+
+            IF (C = 'Historia' AND N = 'Peruano') THEN
+                SET VAL = TRUE;
+            END IF;
+		    RETURN VAL;
+        END;
+
+
+SELECT C.nombre AS CATEGORY,
+       A.nombre AS NAME,
+       A.nacionalidad AS NACIONALITY
+FROM libro AS L
+    INNER JOIN libro_categoria LC on L.id = LC.libro_id
+    INNER JOIN categoria C on LC.categoria_id = C.id
+    INNER JOIN autor A on L.autor_id = A.id
+WHERE validar_historia_peru(C.nombre,A.nacionalidad) = TRUE;
