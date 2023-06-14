@@ -6,14 +6,16 @@ Este es un repositorio que contiene el proyecto de la asignatura "Base de Datos 
 
 El repositorio se estructura de la siguiente manera:
 
-- `/docs`: Esta carpeta contiene la documentación relacionada con el proyecto, como especificaciones, manuales y cualquier otro material relevante.
+- `/HITO 1, HITO 2, HITO 3, HITO 4`: Esta carpeta contiene la documentación relacionada con Trigger, vistas y procedimientos alamcenados
 
-- `/src`: Aquí se encuentra el código fuente del proyecto. Incluye los archivos y las carpetas necesarios para implementar y ejecutar la base de datos.
+
 
 ## Requisitos del Sistema
 
-- [Java](https://www.java.com) - Versión 8 o superior.
 - [MySQL](https://www.mysql.com) - Versión 5.7 o superior.
+- 
+### O en su defecto usar
+- [MariaDB](https://mariadb.org) - Versión 10.2 o superior.
 
 ## Instalación y Uso
 
