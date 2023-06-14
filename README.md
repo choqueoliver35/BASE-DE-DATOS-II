@@ -6,7 +6,10 @@ Este es un repositorio que contiene el proyecto de la asignatura "Base de Datos 
 
 El repositorio se estructura de la siguiente manera:
 
-- `/HITO 1, HITO 2, HITO 3, HITO 4`: Esta carpeta contiene la documentación relacionada con Trigger, vistas y procedimientos alamcenados
+- `/HITO 1`: Repaso de lo avanzado en BASE DE DATOS I
+- `/HITO 2`: Esta carpeta contiene la documentación relacionada con vistas
+- `/HITO 3`: Esta carpeta contiene la documentación relacionada con Lenguaje Procedural
+- `/HITO 4`: Esta carpeta contiene la documentación relacionada con Trigger y procedimientos alamcenados
 
 
 
