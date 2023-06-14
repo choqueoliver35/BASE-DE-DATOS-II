@@ -16,7 +16,7 @@ El repositorio se estructura de la siguiente manera:
 ## Requisitos del Sistema
 
 - [MySQL](https://www.mysql.com) - Versión 5.7 o superior.
-- 
+
 ### O en su defecto usar
 - [MariaDB](https://mariadb.org) - Versión 10.2 o superior.
 
